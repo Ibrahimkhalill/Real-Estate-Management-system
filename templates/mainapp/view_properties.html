@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% load humanize %}
+
+{% block title %} | {{ listing.title }}{% endblock %}
+
+{% block content %}
+
+<div class="div p-2">
+  <h2 style="text-align: center;">View Properties</h2>
+</div>
+<br>
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">SL NO</th>
+      <th scope="col">Title</th>
+      <th scope="col">Types</th>
+      <th scope="col">Adress</th>
+      <th scope="col">City</th>
+      <th scope="col">Living Area</th>
+      <th scope="col">Land Size</th>
+      <th scope="col">Price</th>
+      <th scope="col"> Date Time 1</th>
+      <th scope="col">Date Time 2</th>
+      <th scope="col">Date Time 3</th>
+      <th scope="col">Properties</th>
+      <th scope="col">Description</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+
+
+    </tr>
+  </thead>
+  <tbody>
+    {% for propertie in properties %}
+    <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td>{{propertie.title}}</td>
+      <td>{{propertie.types}}</td>
+
+      <td>{{propertie.adress}}</td>
+
+      <td>{{propertie.city}}</td>
+
+      <td>{{propertie.living_area}}</td>
+
+      <td>{{propertie.land_size}}</td>
+
+      <td>{{propertie.price}}</td>
+      {% for date in propertie.date_time.all %}
+      <td>{{date.date_time}}</td>
+      {% endfor %}
+
+      <td><img src="{{ propertie.properties.url }}" height="100" width="100" alt=""></td>
+
+
+      <td>{{propertie.description}}</td>
+      <td><a class="btn btn-primary form-control" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" href=" {% url 'edit_properties' propertie.pk %}">Edit</a></td>
+      <td><a class="btn btn-danger" href="{% url 'delete_properties' propertie.pk %}}">Delete</a></td>
+    
+    </tr>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add Broker</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="{% url 'edit_properties' propertie.pk  %}" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Title:</label>
+              <input type="text" value="{{propertie.title}}" class="form-control" name="title" id="recipient-name">
+              </div>
+              <div class="form-group">
+                <label for="message-text" class="col-form-label">Type:</label>
+                <input class="form-control" type="text" value="{{propertie.title}}" name="type" id="message-text">
+                
+              </div>
+              <div class="form-group">
+                <label for="email" class="col-form-label">Adress:</label>
+                <input type="text" value="{{propertie.adress}}" name="adress" class="form-control" id="email">
+              </div>
+              <div class="form-group">
+                <label for="Phone-text" class="col-form-label">City:</label>
+                <input type="text" value="{{propertie.city}}" name="city" class="form-control" id="Phone-text">
+              </div>
+              <div class="form-group">
+                <label for="descrip-text" class="col-form-label">Living Area:</label>
+                <input type="text" class="form-control" value="{{propertie.living_area}}" name="living_area" id="descrip-text">
+              </div>
+              <div class="form-group">
+                <label for="descrip-text" class="col-form-label">Land Size:</label>
+                <input type="text" class="form-control" value="{{propertie.land_size}}" name="land_size" id="descrip-text">
+              </div>
+              {% for date in propertie.date_time.all %}
+              <div class="form-group">
+                <label for="descrip-text" class="col-form-label">Date Time 1:</label>
+                <input type="datetime-local" class="form-control" value="{{date.date_time}}" name="date_time1" id="descrip-text">
+              </div>
+             {% endfor %}
+              
+              <div class="form-group">
+                <label for="photo-text" class="col-form-label">Photo:</label>
+                <input type="file" value="{{propertie.properties}}" name="photo" class="form-control" id="photo-text">
+              </div>
+              <div class="form-group">
+                <label for="photo-text" class="col-form-label">Description:</label>
+                <input type="text" value="{{propertie.description}}" name="description" class="form-control" id="photo-text">
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+    
+        </div>
+      </div>
+    </div>   </section>
+   {% endfor %}
+  </tbody>
+</table>
+
+
+{% endblock %}

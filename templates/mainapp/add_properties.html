@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+ {% block content %}
+
+<div class="mt-4">
+  <h2 style="text-align: center; font-style: italic; color: rgb(73, 4, 100);">Add Properties</h2>
+
+</div>
+<section class="section contact-section " id="next">
+  <div class="container col-md-6">
+    <div class="row">
+      <div class="col" data-aos="fade-up" data-aos-delay="100">
+
+        <form action="{% url 'add_properties' %}" method="post" enctype="multipart/form-data" class="bg-white p-md-5 p-4 mb-5 border">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-md-12 form-group">
+              <label class="text-black font-weight-bold" for="room_no">Title</label>
+              <input type="text" id="room_no" class="form-control " name="title" required>
+            </div>
+            <div class="col-md-12 form-group">
+              <label class="text-black font-weight-bold" for="phone">Type</label>
+              <input type="text" id="room_no" class="form-control " name="types" required>
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label class="text-black font-weight-bold" for="adress">Adress</label>
+              <input type="text" id="adress" class="form-control" name="adress" required>
+            </div>
+            <div class="col-md-6 form-group">
+              <label class="text-black font-weight-bold" for="city">City</label>
+              <input type="text" id="city" class="form-control" name="city" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label class="text-black font-weight-bold" for="area">Living Area</label>
+              <input type="text" id="area" class="form-control" name="living_area" required>
+            </div>
+            <div class="col-md-6 form-group">
+              <label class="text-black font-weight-bold" for="land_size">Land Size</label>
+              <input type="number" id="land_size" class="form-control" name="land_size" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label class="text-black font-weight-bold" for="rooms">Rooms</label>
+              <input type="text" id="rooms" class="form-control" name="rooms" required>
+            </div>
+            <div class="col-md-6 form-group">
+              <label class="text-black font-weight-bold" for="price">Price</label>
+              <input type="number" id="price" class="form-control" name="price" required>
+            </div>
+            <div class="col-md-4 form-group">
+              <label class="text-black font-weight-bold" for="rooms">Date Time 1</label>
+              <input type="datetime-local" id="rooms" class="form-control" name="date_time1" required>
+            </div>
+            <div class="col-md-4 form-group">
+              <label class="text-black font-weight-bold" for="price">DateTime 2</label>
+              <input type="datetime-local" id="price" class="form-control" name="date_time2" required>
+            </div>
+            <div class="col-md-4 form-group">
+              <label class="text-black font-weight-bold" for="rooms">Date Time 3</label>
+              <input type="datetime-local" id="rooms" class="form-control" name="date_time3" required>
+            </div>
+           
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 form-group">
+              <label class="text-black font-weight-bold" for="properties">Properties</label>
+              <input type="file" id="properties" class="form-control" name="properties" required></textarea>
+            </div>
+            <div class="row">
+              
+              
+            </div>
+            
+  
+            <div class="col-md-12 form-group">
+              <label class="text-black font-weight-bold" for="description">Description</label>
+              <textarea  id="description" class="form-control" name="description" required></textarea>
+            </div>
+            
+          </div>
+          <div class="row">
+            <div class="col-md-12 form-group">
+              <input type="submit" value="Submit" class="btn btn-primary text-white form-control font-weight-bold">
+            </div>
+          </div>
+          <div class="form-group">
+            {% if messages %}
+            {% for message in messages %}
+            {% if message.tags == 'error' %}
+            <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+            {% endif %}
+            {% if message.tags == 'success' %}
+            <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+          </div>
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+ 
+{% endblock content %}
